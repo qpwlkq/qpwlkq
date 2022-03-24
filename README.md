@@ -15,5 +15,3 @@ Skills: C/C++/JavaScript/Python
 
 ![GitHub metrics](https://metrics.lecoq.io/qpwlkq)  
 
-![GitHub streak stats](https://github-readme-streak-stats.herokuapp.com/?user=qpwlkq)  
-
