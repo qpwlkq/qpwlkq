@@ -1,6 +1,4 @@
 ### Hi there 👋, my name is Qinpeng
-![](https://qpwlkq.github.io/)
-
 I'm an ACMer, nice to meet u.
 I graduated from Shandong Normal University.
 Now I'm working as an intern at Pony.ai.
@@ -14,4 +12,6 @@ Skills: C/C++/JavaScript/Python
 ![GitHub stats](https://github-readme-stats.vercel.app/api?username=qpwlkq&show_icons=true&count_private=true)  
 
 ![GitHub metrics](https://metrics.lecoq.io/qpwlkq)  
+
+![GitHub streak stats](https://github-readme-streak-stats.herokuapp.com/?user=qpwlkq)  
 
