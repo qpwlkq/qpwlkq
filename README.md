@@ -3,7 +3,7 @@ I'm an ACMer, nice to meet u.
 I graduated from Shandong Normal University.
 Now I'm working as an Software Engineer at Pony.ai.
 
-Skills: C/C++/JavaScript/Python
+Skills: C/C++/TS/Python
 
 
 
