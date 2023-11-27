@@ -1,9 +1,9 @@
 ### Hi there 👋, my name is Qinpeng
 I'm an ACMer, nice to meet u.
 I graduated from Shandong Normal University.
-Now I'm working as an Software Engineer at Pony.ai.
+Now I'm working as an Software Engineer at PDD.
 
-Skills: C/C++/TS/Python
+Skills: Java/C/C++/TS/Python
 
 
 
