@@ -1,0 +1,24 @@
+{
+  "name": "dsh-token-heatmap",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GitHub-style contribution heatmap of DeepSeek Harness AI token usage",
+  "type": "module",
+  "main": "./src/plugin.js",
+  "bin": {
+    "dsh-token-heatmap": "./src/cli.js"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "render": "node src/cli.js render"
+  },
+  "engines": {
+    "node": ">=22.19"
+  },
+  "license": "MIT"
+}

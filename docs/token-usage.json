@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "generatedAt": "2026-11-13T02:26:55.238Z",
+  "timeZone": "Asia/Shanghai",
+  "window": {
+    "start": "2025-11-09",
+    "end": "2026-11-13",
+    "weeks": 53
+  },
+  "title": "15M AI tokens in the last year",
+  "totals": {
+    "uncachedInputTokens": 372808,
+    "outputTokens": 223669,
+    "cacheReadTokens": 14490240,
+    "cacheWriteTokens": 0,
+    "requests": 229,
+    "totalTokens": 15086717
+  },
+  "sessionsWithUsage": 12,
+  "days": [
+    {
+      "date": "2026-08-14",
+      "uncachedInputTokens": 61447,
+      "outputTokens": 14022,
+      "cacheReadTokens": 482688,
+      "cacheWriteTokens": 0,
+      "requests": 29,
+      "totalTokens": 558157
+    },
+    {
+      "date": "2026-08-26",
+      "uncachedInputTokens": 70886,
+      "outputTokens": 7808,
+      "cacheReadTokens": 105472,
+      "cacheWriteTokens": 0,
+      "requests": 8,
+      "totalTokens": 184166
+    },
+    {
+      "date": "2026-08-27",
+      "uncachedInputTokens": 16374,
+      "outputTokens": 128,
+      "cacheReadTokens": 16256,
+      "cacheWriteTokens": 0,
+      "requests": 2,
+      "totalTokens": 32758
+    },
+    {
+      "date": "2026-08-28",
+      "uncachedInputTokens": 20494,
+      "outputTokens": 7206,
+      "cacheReadTokens": 267392,
+      "cacheWriteTokens": 0,
+      "requests": 14,
+      "totalTokens": 295092
+    },
+    {
+      "date": "2026-09-20",
+      "uncachedInputTokens": 21338,
+      "outputTokens": 50,
+      "cacheReadTokens": 0,
+      "cacheWriteTokens": 0,
+      "requests": 1,
+      "totalTokens": 21388
+    },
+    {
+      "date": "2026-11-11",
+      "uncachedInputTokens": 40074,
+      "outputTokens": 38720,
+      "cacheReadTokens": 436096,
+      "cacheWriteTokens": 0,
+      "requests": 18,
+      "totalTokens": 514890
+    },
+    {
+      "date": "2026-11-12",
+      "uncachedInputTokens": 133848,
+      "outputTokens": 132933,
+      "cacheReadTokens": 9505152,
+      "cacheWriteTokens": 0,
+      "requests": 131,
+      "totalTokens": 9771933
+    },
+    {
+      "date": "2026-11-13",
+      "uncachedInputTokens": 8347,
+      "outputTokens": 22802,
+      "cacheReadTokens": 3677184,
+      "cacheWriteTokens": 0,
+      "requests": 26,
+      "totalTokens": 3708333
+    }
+  ],
+  "diagnostics": {
+    "files": 16,
+    "sessions": 16,
+    "skippedFrames": 0,
+    "corruptLines": 0
+  }
+}
