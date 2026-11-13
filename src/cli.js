@@ -108,11 +108,13 @@ function describe({ usage, grid, diagnostics, home }, timeZone) {
     `home      ${home ?? '(not recorded in ledger)'}`,
     `time zone ${timeZone}`,
     `window    ${grid.start} -> ${grid.end} (${grid.columns} weeks)`,
-    diagnostics?.files === undefined
-      ? 'logs      (rendered from ledger, no scan)'
-      : `logs      ${diagnostics.files} files, ${diagnostics.sessions} sessions`
-        + (diagnostics.skippedFrames ? `, ${diagnostics.skippedFrames} torn frames skipped` : '')
-        + (diagnostics.corruptLines ? `, ${diagnostics.corruptLines} corrupt lines` : ''),
+    diagnostics?.source === undefined
+      ? 'source    ledger (no session read)'
+      : diagnostics.files === undefined
+        ? `source    ${diagnostics.source}, ${diagnostics.sessions} sessions`
+        : `source    ${diagnostics.source}, ${diagnostics.files} files, ${diagnostics.sessions} sessions`
+          + (diagnostics.skippedFrames ? `, ${diagnostics.skippedFrames} torn frames skipped` : '')
+          + (diagnostics.corruptLines ? `, ${diagnostics.corruptLines} corrupt lines` : ''),
     `tokens    ${formatExact(totals.totalTokens)} (${formatTokens(totals.totalTokens)})`
       + `  in ${formatTokens(totals.uncachedInputTokens)}`
       + `  out ${formatTokens(totals.outputTokens)}`

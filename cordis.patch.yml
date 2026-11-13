@@ -1,5 +1,5 @@
 # Bundle patch: mount the token-heatmap plugin, which registers the
-# `/token-heatmap` command. Install with `dsh plugin --profile <name> add <dir>`.
+# `/token-heatmap` command. The package name must match the installed package.
 - insert:
     - id: token-heatmap
-      name: dsh-token-heatmap
+      name: '@qpwlkq/dsh-token-heatmap'

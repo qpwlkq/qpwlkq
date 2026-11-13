@@ -15,16 +15,14 @@ const DAY_MS = 86_400_000
 const JSON_VERSION = 1
 
 /**
- * Read every readable session log and fold its usage into daily totals.
- * @param options - home, time zone, window length, and optional end day.
- * @returns usage days, the calendar grid, and scan diagnostics.
+ * Fold already-loaded sessions into daily totals and the calendar grid.
+ * @param sessions - loaded session logs.
+ * @param options - time zone, week count, optional end day, and source label.
+ * @returns usage days, the grid, and diagnostics for the ledger.
  */
-export function collectUsage({ home, timeZone, weeks = 53, end }) {
+export function collectUsageFromSessions(sessions, { timeZone, weeks = 53, end, source = 'sessions' }) {
   const endDay = end ?? dayKey(Date.now(), timeZone)
-  const sinceMs = Date.now() - (weeks * 7 + 7) * DAY_MS
-  const files = listSessionFiles(home, { sinceMs })
-  const loaded = loadSessions(files)
-  const usage = foldUsage(loaded.sessions, { timeZone })
+  const usage = foldUsage(sessions, { timeZone })
   const grid = buildGrid(
     new Map(usage.days.map(day => [day.date, day.totalTokens])),
     { end: endDay, weeks },
@@ -32,11 +30,27 @@ export function collectUsage({ home, timeZone, weeks = 53, end }) {
   return {
     usage,
     grid,
-    home,
     timeZone,
+    diagnostics: { source, sessions: sessions.length },
+  }
+}
+
+/**
+ * Read every readable JSONL session log and fold its usage into daily totals.
+ * @param options - home, time zone, window length, and optional end day.
+ * @returns usage days, the calendar grid, and scan diagnostics.
+ */
+export function collectUsage({ home, timeZone, weeks = 53, end }) {
+  const sinceMs = Date.now() - (weeks * 7 + 7) * DAY_MS
+  const files = listSessionFiles(home, { sinceMs })
+  const loaded = loadSessions(files)
+  const collected = collectUsageFromSessions(loaded.sessions, { timeZone, weeks, end, source: 'session-log' })
+  return {
+    ...collected,
+    home,
     diagnostics: {
+      ...collected.diagnostics,
       files: files.length,
-      sessions: loaded.sessions.length,
       skippedFrames: loaded.skippedFrames,
       corruptLines: loaded.corruptLines,
     },

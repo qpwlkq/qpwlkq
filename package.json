@@ -1,24 +1,58 @@
 {
-  "name": "dsh-token-heatmap",
+  "name": "@qpwlkq/dsh-token-heatmap",
   "version": "0.1.0",
-  "private": true,
-  "description": "GitHub-style contribution heatmap of DeepSeek Harness AI token usage",
+  "description": "GitHub-style token usage heatmap for DeepSeek Harness, exported as an SVG for your profile README.",
   "type": "module",
   "main": "./src/plugin.js",
-  "bin": {
-    "dsh-token-heatmap": "./src/cli.js"
+  "exports": {
+    ".": "./src/plugin.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "scripts",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "screenshots.json",
+    "assets"
+  ],
+  "icon": "assets/icon.svg",
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "cordis",
+    "token",
+    "usage",
+    "heatmap",
+    "contributions"
+  ],
+  "author": "qpwlkq",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qpwlkq/dsh-token-heatmap.git"
+  },
+  "homepage": "https://github.com/qpwlkq/dsh-token-heatmap#readme",
+  "bugs": {
+    "url": "https://github.com/qpwlkq/dsh-token-heatmap/issues"
+  },
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0",
+    "dsh": "^0.2.0-rc.2 || ^0.2.1-rc.5"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "render": "node src/cli.js render",
+    "demo": "node scripts/demo.mjs"
   },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
   },
-  "scripts": {
-    "test": "node --test test/*.test.js",
-    "render": "node src/cli.js render"
-  },
-  "engines": {
-    "node": ">=22.19"
-  },
-  "license": "MIT"
+  "publishConfig": {
+    "access": "public"
+  }
 }
