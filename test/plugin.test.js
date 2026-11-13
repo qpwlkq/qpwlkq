@@ -8,6 +8,7 @@ import { apply } from '../src/plugin.js'
 /** Build a context whose only composed seam is the command registry. */
 function fakeContext(sessionQuery) {
   const registered = []
+  const effects = []
   const ctx = {
     inject(_deps, callback) {
       callback({ commands: { register: definition => registered.push(definition) } })
@@ -15,8 +16,11 @@ function fakeContext(sessionQuery) {
     get(name, _strict) {
       return name === 'sessionQuery' ? sessionQuery : undefined
     },
+    effect(execute, _label) {
+      effects.push(execute)
+    },
   }
-  return { ctx, registered }
+  return { ctx, registered, effects }
 }
 
 function tempHome(t) {
@@ -67,6 +71,17 @@ test('the command reads sessions through sessionQuery when present', async (t) =
   assert.equal(ledger.totals.totalTokens, 110)
   assert.equal(ledger.diagnostics.source, 'sessionQuery')
   assert.equal(ledger.diagnostics.sessions, 1)
+})
+
+test('autoUpdate installs a timer effect, and the default does not', (t) => {
+  const home = tempHome(t)
+  const off = fakeContext(undefined)
+  apply(off.ctx, { outputDir: join(home, 'off'), timeZone: 'UTC' })
+  assert.equal(off.effects.length, 0)
+
+  const on = fakeContext(undefined)
+  apply(on.ctx, { outputDir: join(home, 'on'), timeZone: 'UTC', autoUpdate: true })
+  assert.equal(on.effects.length, 1)
 })
 
 test('a failing query backend falls back to the durable logs', async (t) => {

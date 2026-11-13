@@ -83,10 +83,10 @@ export function writeOutputs({ out, usage, grid, timeZone, home, diagnostics, ti
       days: usage.days,
       diagnostics,
     }
-    writeFileSync(jsonPath, `${JSON.stringify(snapshot, null, 2)}\n`)
+    writeText(jsonPath, `${JSON.stringify(snapshot, null, 2)}\n`)
   }
-  writeFileSync(lightPath, `${renderSvg(grid, { theme: 'light', title: headline, note })}\n`)
-  writeFileSync(darkPath, `${renderSvg(grid, { theme: 'dark', title: headline, note })}\n`)
+  writeText(lightPath, `${renderSvg(grid, { theme: 'light', title: headline, note })}\n`)
+  writeText(darkPath, `${renderSvg(grid, { theme: 'dark', title: headline, note })}\n`)
 
   return { jsonPath: writeLedger ? jsonPath : undefined, lightPath, darkPath, headline }
 }
@@ -111,6 +111,23 @@ export function fromLedger(json, { end, weeks = 53, title } = {}) {
   }
   const headline = title ?? json.title ?? `${formatTokens(grid.stats.totalTokens)} AI tokens in the last year`
   return { usage, grid, timeZone, headline, home: json.home, diagnostics: json.diagnostics }
+}
+
+/**
+ * Write only when the bytes differ, so a six-hourly refresh does not touch
+ * files whose content did not change.
+ * @param path - destination file.
+ * @param content - complete new content.
+ * @returns whether the file was written.
+ */
+function writeText(path, content) {
+  try {
+    if (readFileSync(path, 'utf8') === content) return false
+  } catch {
+    // Missing file: the write below creates it.
+  }
+  writeFileSync(path, content)
+  return true
 }
 
 /**
