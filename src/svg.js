@@ -8,7 +8,7 @@ import { formatTokens } from './format.js'
 const CELL = 11
 const GAP = 3
 const PITCH = CELL + GAP
-const LEFT = 38
+const LEFT = 52
 const TOP = 58
 const GRID_WIDTH = 53 * PITCH - GAP
 const GRID_HEIGHT = 7 * PITCH - GAP
@@ -62,7 +62,7 @@ export function renderSvg(grid, { theme = 'light', title, note }) {
     const label = WEEKDAYS[weekday]
     if (label === '') continue
     parts.push(
-      `<text x="${LEFT - 8}" y="${TOP + weekday * PITCH + 9}" text-anchor="end" font-family="${FONT}" font-size="10" fill="${palette.muted}">${label}</text>`,
+      `<text x="${LEFT - 12}" y="${TOP + weekday * PITCH + 9}" text-anchor="end" font-family="${FONT}" font-size="10" fill="${palette.muted}">${label}</text>`,
     )
   }
 
