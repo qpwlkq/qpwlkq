@@ -20,8 +20,14 @@ cd "$root"
 git add "$out/token-heatmap.svg" "$out/token-heatmap-dark.svg" "$out/token-usage.json"
 if git diff --cached --quiet; then
   echo "token-heatmap: no changes"
-  exit 0
+else
+  git commit -m "chore(token-heatmap): update $(date +%F)"
 fi
 
-git commit -m "chore(token-heatmap): update $(date +%F)"
-git push
+# Push even when this run wrote nothing: an earlier run may have committed
+# while the network was down, and that commit still has to reach GitHub.
+if git rev-parse --abbrev-ref '@{u}' >/dev/null 2>&1; then
+  git push
+else
+  git push -u origin HEAD
+fi
