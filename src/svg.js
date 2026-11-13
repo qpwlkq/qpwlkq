@@ -1,5 +1,9 @@
 /**
  * Render the calendar grid as a standalone SVG suitable for a GitHub README.
+ *
+ * The card encloses the month labels, weekday labels, grid, footer, and
+ * legend — the same structure GitHub's own contribution card uses — so the
+ * labels never sit in the outer margin.
  * @module token-heatmap/svg
  */
 
@@ -8,10 +12,21 @@ import { formatTokens } from './format.js'
 const CELL = 11
 const GAP = 3
 const PITCH = CELL + GAP
-const LEFT = 52
-const TOP = 58
 const GRID_WIDTH = 53 * PITCH - GAP
 const GRID_HEIGHT = 7 * PITCH - GAP
+
+const MARGIN = 20
+const CARD_X = MARGIN
+const CARD_TOP = 36
+const MONTH_Y = CARD_TOP + 24
+const TOP = CARD_TOP + 36
+const LABEL_END = CARD_X + 42
+const LEFT = CARD_X + 54
+const CARD_RIGHT = LEFT + GRID_WIDTH + 14
+const FOOTER_Y = TOP + GRID_HEIGHT + 28
+const CARD_BOTTOM = FOOTER_Y + 12
+const WIDTH = CARD_RIGHT + MARGIN
+const HEIGHT = CARD_BOTTOM + 14
 
 /** GitHub's own contribution palette, light and dark. */
 const PALETTES = {
@@ -40,21 +55,18 @@ const WEEKDAYS = ['', 'Mon', '', 'Wed', '', 'Fri', '']
  */
 export function renderSvg(grid, { theme = 'light', title, note }) {
   const palette = PALETTES[theme]
-  const width = LEFT + GRID_WIDTH + 18
-  const height = TOP + GRID_HEIGHT + 56
-  const footerY = TOP + GRID_HEIGHT + 26
   const parts = []
 
   parts.push(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeXml(title)}">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}" role="img" aria-label="${escapeXml(title)}">`,
     `<title>${escapeXml(title)}</title>`,
-    `<rect x="${LEFT - 8}" y="${TOP - 8}" width="${GRID_WIDTH + 16}" height="${GRID_HEIGHT + 16}" rx="6" fill="none" stroke="${palette.border}"/>`,
-    `<text x="16" y="24" font-family="${FONT}" font-size="15" font-weight="600" fill="${palette.text}">${escapeXml(title)}</text>`,
+    `<text x="${MARGIN}" y="24" font-family="${FONT}" font-size="15" font-weight="600" fill="${palette.text}">${escapeXml(title)}</text>`,
+    `<rect x="${CARD_X}" y="${CARD_TOP}" width="${CARD_RIGHT - CARD_X}" height="${CARD_BOTTOM - CARD_TOP}" rx="6" fill="none" stroke="${palette.border}"/>`,
   )
 
   for (const month of grid.months) {
     parts.push(
-      `<text x="${LEFT + month.week * PITCH}" y="${TOP - 14}" font-family="${FONT}" font-size="10.5" fill="${palette.muted}">${month.label}</text>`,
+      `<text x="${LEFT + month.week * PITCH}" y="${MONTH_Y}" font-family="${FONT}" font-size="10.5" fill="${palette.muted}">${month.label}</text>`,
     )
   }
 
@@ -62,7 +74,7 @@ export function renderSvg(grid, { theme = 'light', title, note }) {
     const label = WEEKDAYS[weekday]
     if (label === '') continue
     parts.push(
-      `<text x="${LEFT - 12}" y="${TOP + weekday * PITCH + 9}" text-anchor="end" font-family="${FONT}" font-size="10" fill="${palette.muted}">${label}</text>`,
+      `<text x="${LABEL_END}" y="${TOP + weekday * PITCH + 9}" text-anchor="end" font-family="${FONT}" font-size="10" fill="${palette.muted}">${label}</text>`,
     )
   }
 
@@ -73,19 +85,19 @@ export function renderSvg(grid, { theme = 'light', title, note }) {
   }
 
   parts.push(
-    `<text x="16" y="${footerY}" font-family="${FONT}" font-size="10.5" fill="${palette.muted}">${escapeXml(note)}</text>`,
-    legend(footerY, palette),
+    `<text x="${CARD_X + 14}" y="${FOOTER_Y}" font-family="${FONT}" font-size="10.5" fill="${palette.muted}">${escapeXml(note)}</text>`,
+    legend(CARD_RIGHT - 14, FOOTER_Y, palette),
     '</svg>',
   )
 
   return parts.join('')
 }
 
-function legend(y, palette) {
+function legend(rightEdge, y, palette) {
   const swatchX = 26 + 6
   const swatchEnd = swatchX + 5 * PITCH - GAP
   const legendWidth = swatchEnd + 6 + 30
-  const start = LEFT + GRID_WIDTH + 10 - legendWidth
+  const start = rightEdge - legendWidth
   const swatches = palette.levels
     .map((color, index) => `<rect x="${swatchX + index * PITCH}" y="0" width="${CELL}" height="${CELL}" rx="2" fill="${color}"/>`)
     .join('')
