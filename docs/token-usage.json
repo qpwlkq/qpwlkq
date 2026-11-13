@@ -1,20 +1,20 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-13T03:04:54.660Z",
+  "generatedAt": "2026-11-13T03:06:24.384Z",
   "timeZone": "Asia/Shanghai",
   "window": {
     "start": "2025-11-09",
     "end": "2026-11-13",
     "weeks": 53
   },
-  "title": "41M AI tokens in the last year",
+  "title": "44M AI tokens in the last year",
   "totals": {
-    "uncachedInputTokens": 434656,
-    "outputTokens": 324430,
-    "cacheReadTokens": 40610432,
+    "uncachedInputTokens": 438192,
+    "outputTokens": 334516,
+    "cacheReadTokens": 43114112,
     "cacheWriteTokens": 0,
-    "requests": 339,
-    "totalTokens": 41369518
+    "requests": 347,
+    "totalTokens": 43886820
   },
   "sessionsWithUsage": 12,
   "days": [
@@ -83,12 +83,12 @@
     },
     {
       "date": "2026-11-13",
-      "uncachedInputTokens": 70195,
-      "outputTokens": 123563,
-      "cacheReadTokens": 29797376,
+      "uncachedInputTokens": 73731,
+      "outputTokens": 133649,
+      "cacheReadTokens": 32301056,
       "cacheWriteTokens": 0,
-      "requests": 136,
-      "totalTokens": 29991134
+      "requests": 144,
+      "totalTokens": 32508436
     }
   ],
   "diagnostics": {
